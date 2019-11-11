@@ -14,11 +14,7 @@ export class BlockchainService {
   }
 
   mine(data: any): Block {
-    try {
-      this.blockchain.mine(data);
-      return this.blockchain.lastBlock();
-    } catch (error) {
-      return error;
-    }
+    this.blockchain.mine(data);
+    return this.blockchain.lastBlock();
   }
 }
