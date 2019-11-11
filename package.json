@@ -13,17 +13,17 @@
     "start:debug": "nest start --debug --watch",
     "start:prod": "node dist/main",
     "lint": "tslint -p tsconfig.json -c tslint.json",
-    "test": "jest",
-    "test:watch": "jest --watch",
-    "test:cov": "jest --coverage",
     "test:debug": "node --inspect-brk -r tsconfig-paths/register -r ts-node/register node_modules/.bin/jest --runInBand",
-    "test:e2e": "jest --config ./test/jest-e2e.json"
+    "test": "jest --config jest.json",
+    "test:watch": "jest --config jest.json --watch"
   },
   "dependencies": {
     "@nestjs/common": "^6.7.2",
     "@nestjs/core": "^6.7.2",
     "@nestjs/platform-express": "^6.7.2",
     "blockchain-demo": "git+https://github.com/bladerangel/blockchain-demo.git",
+    "class-transformer": "^0.2.3",
+    "class-validator": "^0.11.0",
     "reflect-metadata": "^0.1.13",
     "rimraf": "^3.0.0",
     "rxjs": "^6.5.3"
@@ -45,19 +45,5 @@
     "tsconfig-paths": "^3.9.0",
     "tslint": "^5.20.0",
     "typescript": "^3.6.3"
-  },
-  "jest": {
-    "moduleFileExtensions": [
-      "js",
-      "json",
-      "ts"
-    ],
-    "rootDir": "src",
-    "testRegex": ".spec.ts$",
-    "transform": {
-      "^.+\\.(t|j)s$": "ts-jest"
-    },
-    "coverageDirectory": "./coverage",
-    "testEnvironment": "node"
   }
 }
