@@ -1,6 +1,14 @@
-import { Controller, Get, HttpCode, Post, Body } from '@nestjs/common';
+import {
+  Controller,
+  Get,
+  Post,
+  Body,
+  HttpException,
+  HttpStatus,
+} from '@nestjs/common';
 import { BlockchainService } from './blockchain.service';
 import { Block } from 'blockchain-demo';
+import Mine from './mine';
 
 @Controller()
 export class BlockchainController {
@@ -8,8 +16,17 @@ export class BlockchainController {
 
   @Get('start')
   start(): any {
-    this.blockchainService.start();
-    return { message: 'Blockchain successfully created.' };
+    try {
+      this.blockchainService.start();
+      return { message: 'Blockchain successfully created.' };
+    } catch (error) {
+      throw new HttpException(
+        {
+          message: 'Blockchain has not been initialized.',
+        },
+        HttpStatus.METHOD_NOT_ALLOWED,
+      );
+    }
   }
 
   @Get('chain')
@@ -17,16 +34,26 @@ export class BlockchainController {
     try {
       return this.blockchainService.getChain();
     } catch (error) {
-      return { message: 'Blockchain has not been initialized.' };
+      throw new HttpException(
+        {
+          message: 'Blockchain has not been initialized.',
+        },
+        HttpStatus.METHOD_NOT_ALLOWED,
+      );
     }
   }
 
   @Post('mine')
-  mine(@Body() data: any): Block | any {
+  mine(@Body() mine: Mine): Block | any {
     try {
-      return this.blockchainService.mine(data);
+      return this.blockchainService.mine(mine.data);
     } catch (error) {
-      return { message: 'Blockchain has not been initialized.' };
+      throw new HttpException(
+        {
+          message: 'Blockchain has not been initialized.',
+        },
+        HttpStatus.METHOD_NOT_ALLOWED,
+      );
     }
   }
 }
